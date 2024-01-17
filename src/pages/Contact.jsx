@@ -12,7 +12,6 @@ import Header from '../components/common/Header';
 import contactImage from '/images/contact-bg.png';
 import {
   FaDribbble,
-  FaFacebookF,
   FaGithub,
   FaInstagram,
   FaLinkedinIn,
@@ -39,6 +38,9 @@ const Contact = () => {
           isClosable: true,
         });
         console.log(name, email, message);
+        setName('');
+        setEmail('');
+        setMessage('');
       } else {
         toast({
           title: 'Please Provide a valid email!',

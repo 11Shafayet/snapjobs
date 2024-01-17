@@ -1,5 +1,6 @@
 import { Box, Container, Flex, SimpleGrid, Text } from '@chakra-ui/react';
-import { MdOutlineDevicesOther } from 'react-icons/md';
+import { allCategories } from '../../data';
+import { Link } from 'react-router-dom';
 
 const TopCategories = () => {
   return (
@@ -16,35 +17,43 @@ const TopCategories = () => {
 
         <Box align="center" mt={12}>
           <SimpleGrid columns={{ sm: 2, md: 3, lg: 4, xl: 6 }} gap={4}>
-            <Flex
-              p={3}
-              w="100%"
-              rowGap={1}
-              border="1px"
-              align="center"
-              bg="transparent"
-              borderRadius={6}
-              direction="column"
-              borderColor="red.100"
-            >
-              <Flex
-                w={16}
-                h={16}
-                bg="red.100"
-                color="brand"
-                align="center"
-                justify="center"
-                borderRadius="full"
-              >
-                <MdOutlineDevicesOther size={28} />
-              </Flex>
-              <Text fontSize={18} fontWeight={500}>
-                Software Company
-              </Text>
-              <Text fontSize={14} mt={-2} opacity={0.5}>
-                607 Jobs
-              </Text>
-            </Flex>
+            {allCategories.slice(0, 12).map((item, i) => {
+              return (
+                <Link to={`/all-jobs`} key={i}>
+                  <Flex
+                    p={3}
+                    w="100%"
+                    rowGap={1}
+                    border="1px"
+                    align="center"
+                    justify="center"
+                    bg="transparent"
+                    borderRadius={6}
+                    direction="column"
+                    borderColor="red.100"
+                    h="full"
+                  >
+                    <Flex
+                      w={16}
+                      h={16}
+                      bg="red.100"
+                      color="brand"
+                      align="center"
+                      justify="center"
+                      borderRadius="full"
+                    >
+                      {item.icon}
+                    </Flex>
+                    <Text fontSize={18} fontWeight={500}>
+                      {item.category}
+                    </Text>
+                    <Text fontSize={16} opacity={0.5}>
+                      {item.posts}
+                    </Text>
+                  </Flex>
+                </Link>
+              );
+            })}
           </SimpleGrid>
         </Box>
       </Container>

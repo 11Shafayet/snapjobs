@@ -2,11 +2,19 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { blogs } from '../data';
 import Sidebar from '../components/blogs/Sidebar';
+import {
+  Box,
+  Container,
+  Flex,
+  Image,
+  Text,
+  UnorderedList,
+} from '@chakra-ui/react';
 
 const SingleBlogPage = () => {
   const { pathname } = useLocation();
   const [data, setData] = useState({});
-  const path = pathname.split('/blog/').pop();
+  const path = pathname.split('/all-blog/').pop();
 
   useEffect(() => {
     if (path) {
@@ -24,59 +32,100 @@ const SingleBlogPage = () => {
 
   return (
     <>
-      {data.id && (
-        <div>
-          <div
-            className="relative z-10 bg-cover bg-center bg-no-repeat flex justify-center items-center min-h-[60vh]"
+      {data?.id && (
+        <Box>
+          <Flex
+            justify="center"
+            align="center"
+            minH="60vh"
+            pos="relative"
+            zIndex={10}
+            bgPos="center"
+            bgRepeat="no-repeat"
             style={{ backgroundImage: `url(${data.img})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 opacity-70 -z-10" />
-            <h4 className="capitalize font-primary text-3xl md:text-5xl font-bold max-w-[800px] text-center text-white !leading-snug">
+            <Box
+              pos="absolute"
+              top={0}
+              left={0}
+              right={0}
+              bottom={0}
+              opacity={0.7}
+              zIndex={-10}
+              style={{
+                background: `linear-gradient(120deg, #F6E05E, #00B5D8)`,
+              }}
+              className="absolute inset-0 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 opacity-70 -z-10"
+            />
+            <Text
+              textTransform="capitalize"
+              fontSize={{ base: 28, md: 48 }}
+              fontWeight={700}
+              maxW="800px"
+              textAlign="center"
+              color="white"
+              lineHeight={1.2}
+            >
               {data.title}
-            </h4>
-          </div>
+            </Text>
+          </Flex>
 
-          <div className="py-12 md:py-20">
-            <div className="container px-4 mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-20">
-                <div className="col-span-1 lg:col-span-2">
-                  <div>
-                    <div className="relative mb-3">
-                      <img
-                        src={data.img}
-                        alt="blog"
-                        className="w-full max-h-[500px] object-cover rounded-lg"
-                      />
-                      <div className="absolute bottom-5 right-5 bg-black bg-opacity-40 py-3 px-6 rounded-md text-white font-bold text-xl">
-                        {data.date}
-                      </div>
-                    </div>
-                    <h3 className="text-3xl font-secondary font-bold group-hover:text-primary duration-300 mt-6">
-                      {data.title}
-                    </h3>
-                    <p className="leading-normal tracking-wide opacity-50 mt-3">
-                      {data.desc}
-                    </p>
-                    <div className="mt-6">
-                      <h6 className="font-primary text-2xl font-bold !leading-snug mb-3">
-                        Content
-                      </h6>
-                      <ul className="list-disc opacity-60 pl-3 flex flex-col gap-y-2">
-                        {data.content.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+          <Box py={{ base: 12, md: 20 }}>
+            <Container mx="auto" maxW="1440px" px={{ base: 5, lg: 20 }}>
+              <Flex
+                flexDir={{ base: 'column', lg: 'row' }}
+                gap={{ base: 4, md: 10, lg: 12 }}
+              >
+                <Box w={{ base: 'full', lg: '66%' }}>
+                  <Box pos="relative" mb={3}>
+                    <Image
+                      src={data.img}
+                      alt="blog"
+                      w="full"
+                      maxH="500px"
+                      objectFit="cover"
+                      borderRadius={11}
+                    />
+                    <Text opacity={0.5} mt={5}>
+                      {data.date}
+                    </Text>
+                  </Box>
+                  <Text
+                    noOfLines={2}
+                    lineHeight={1.4}
+                    fontSize={24}
+                    fontWeight={700}
+                    _groupHover={{ color: 'brand' }}
+                  >
+                    {data.title}
+                  </Text>
+                  <Text opacity={0.5} mt={3}>
+                    {data.desc}
+                  </Text>
+                  <Box mt={6}>
+                    <Text
+                      fontSize={20}
+                      fontWeight={700}
+                      lineHeight={1.3}
+                      mb={3}
+                    >
+                      Content
+                    </Text>
+                    <UnorderedList opacity={0.6} ps={3} gap={2}>
+                      {data.content.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </UnorderedList>
+                  </Box>
+                </Box>
 
-                <div className="col-span-1">
-                  <Sidebar searchBar="false" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                <Box w={{ base: 'full', lg: '34%' }}>
+                  <Sidebar currentItem={data.id} />
+                </Box>
+              </Flex>
+            </Container>
+          </Box>
+        </Box>
       )}
     </>
   );

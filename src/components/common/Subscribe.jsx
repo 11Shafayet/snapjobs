@@ -40,6 +40,7 @@ const Subscribe = () => {
           duration: 5000,
           isClosable: true,
         });
+        setEmail('');
       }
     }
   };
@@ -67,10 +68,12 @@ const Subscribe = () => {
             <FormControl>
               <Input
                 border={0}
+                outline={0}
                 placeholder="Enter Your Email Address"
                 py={7}
                 w="100%"
                 type="email"
+                _focus={{ boxShadow: 'none' }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />

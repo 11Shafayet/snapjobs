@@ -6,7 +6,6 @@ import {
   InputGroup,
   InputLeftElement,
   Select,
-  Text,
   useTheme,
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
@@ -27,25 +26,34 @@ const FilterBar = () => {
       borderRadius={11}
       boxShadow={`0 0 11px 0 ${theme.colors.secondary}`}
     >
-      <Text>302 New Jobs Found</Text>
+      <InputGroup w="300px" minH="50px">
+        <InputLeftElement h="full">
+          <FaSearch opacity={0.3} />
+        </InputLeftElement>
+        <Input
+          type="text"
+          placeholder="Search by job title"
+          minW="250px"
+          minH="50px"
+          _focus={{
+            boxShadow: `0 0 11px 0 ${theme.colors.secondary}`,
+            outline: 0,
+            border: 0,
+          }}
+          value={searchedText}
+          onChange={(e) => setSearchedText(e.target.value)}
+        />
+      </InputGroup>
       <Flex align="center" gap={3}>
-        <InputGroup minW="300px" minH="50px">
-          <InputLeftElement h="full">
-            <FaSearch opacity={0.3} />
-          </InputLeftElement>
-          <Input
-            type="text"
-            placeholder="Search by job title"
-            minW="250px"
-            minH="50px"
-            value={searchedText}
-            onChange={(e) => setSearchedText(e.target.value)}
-          />
-        </InputGroup>
         <FormControl>
           <Select
             minH="50px"
             minW={166}
+            _focus={{
+              boxShadow: `0 0 11px 0 ${theme.colors.secondary}`,
+              outline: 0,
+              border: 0,
+            }}
             value={choosedOption}
             onChange={(e) => setChoosedOption(e.target.value)}
           >

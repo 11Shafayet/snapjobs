@@ -4,6 +4,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import { CiStopwatch, CiWallet } from 'react-icons/ci';
 import { allJobs } from '../../data';
 import useAuth from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 const Jobs = () => {
   const { searchedText, choosedOption } = useAuth();
@@ -39,90 +40,99 @@ const Jobs = () => {
           .filter(searchFilter)
           .filter(optionFilter)
           .map((job, i) => {
-            const { img, title, location, tags, salary, timestamp, duration } =
-              job;
+            const {
+              id,
+              img,
+              title,
+              location,
+              tags,
+              salary,
+              timestamp,
+              duration,
+            } = job;
             return (
-              <Flex
-                direction="column"
-                w="100%"
-                p={5}
-                borderRadius={6}
-                bg="transparent"
-                border="1px"
-                borderColor="secondary"
-                align="center"
-                rowGap={2}
-                pos="relative"
-                key={i}
-              >
-                <Box pos="absolute" top={3} right={3}>
-                  <Text
-                    px={3}
-                    py={1}
-                    bg="secondary"
-                    fontSize="14"
-                    fontWeight={500}
-                    borderRadius={5}
-                    opacity={0.75}
-                  >
-                    {duration}
-                  </Text>
-                </Box>
-                <Image src={img} w={20} h={20} />
-                <Text fontSize={20} fontWeight={500}>
-                  {title}
-                </Text>
-                <Flex gap={1.5} opacity={0.5} mt={-2} align="center">
-                  <FaMapMarkerAlt />
-                  <Text fontSize="15">{location}</Text>
-                </Flex>
+              <Link to={`/all-jobs/${id}`} key={i}>
                 <Flex
-                  wrap="wrap"
-                  gap={2}
-                  opacity={0.75}
-                  mt={2}
-                  mb={3}
+                  direction="column"
+                  w="100%"
+                  p={5}
+                  borderRadius={6}
+                  bg="transparent"
+                  border="1px"
+                  borderColor="secondary"
                   align="center"
-                  justify="center"
+                  rowGap={2}
+                  pos="relative"
                 >
-                  {tags.map((tag, j) => (
+                  <Box pos="absolute" top={3} right={3}>
                     <Text
-                      key={j}
-                      bg="secondary"
-                      fontSize="14"
                       px={3}
                       py={1}
-                      borderRadius={5}
+                      bg="secondary"
+                      fontSize="14"
                       fontWeight={500}
+                      borderRadius={5}
+                      opacity={0.75}
                     >
-                      {tag}
+                      {duration}
                     </Text>
-                  ))}
-                </Flex>
-                <Divider />
-                <Flex w="full" justify="space-between" align="center" mt={2}>
-                  <Flex
-                    align="center"
-                    justify="center"
-                    gap={1.5}
-                    fontSize={15}
-                    opacity={0.75}
-                  >
-                    <CiWallet size={16} />
-                    {salary}
+                  </Box>
+                  <Image src={img} w={20} h={20} />
+                  <Text fontSize={20} fontWeight={500}>
+                    {title}
+                  </Text>
+                  <Flex gap={1.5} opacity={0.5} mt={-2} align="center">
+                    <FaMapMarkerAlt />
+                    <Text fontSize="15">{location}</Text>
                   </Flex>
                   <Flex
+                    wrap="wrap"
+                    gap={2}
+                    opacity={0.75}
+                    mt={2}
+                    mb={3}
                     align="center"
                     justify="center"
-                    gap={1.5}
-                    fontSize={15}
-                    opacity={0.75}
                   >
-                    <CiStopwatch size={16} />
-                    {timestamp} {timestamp < 2 ? 'Day Ago' : 'Days Ago'}
+                    {tags.map((tag, j) => (
+                      <Text
+                        key={j}
+                        bg="secondary"
+                        fontSize="14"
+                        px={3}
+                        py={1}
+                        borderRadius={5}
+                        fontWeight={500}
+                      >
+                        {tag}
+                      </Text>
+                    ))}
+                  </Flex>
+                  <Divider />
+                  <Flex w="full" justify="space-between" align="center" mt={2}>
+                    <Flex
+                      align="center"
+                      justify="center"
+                      gap={1.5}
+                      fontSize={15}
+                      opacity={0.75}
+                    >
+                      <CiWallet size={16} />
+                      {salary}
+                    </Flex>
+                    <Flex
+                      align="center"
+                      justify="center"
+                      gap={1.5}
+                      fontSize={15}
+                      opacity={0.75}
+                    >
+                      <CiStopwatch size={16} />
+                      {timestamp} {timestamp < 2 ? 'Day Ago' : 'Days Ago'}
+                    </Flex>
                   </Flex>
                 </Flex>
-              </Flex>
+              </Link>
             );
           })}
       </SimpleGrid>

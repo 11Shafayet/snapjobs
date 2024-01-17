@@ -15,6 +15,7 @@ import {
 import abstract6 from '/images/abstract6.png';
 import abstract7 from '/images/abstract7.png';
 import { FaCheck, FaLongArrowAltRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
@@ -79,16 +80,18 @@ const About = () => {
               </Stat>
             </StatGroup>
             <Box>
-              <Button
-                p={6}
-                mt={12}
-                gap={1}
-                bg="brand"
-                color="white"
-                _hover={{ bg: 'red.600' }}
-              >
-                See Details <FaLongArrowAltRight size={22} />
-              </Button>
+              <Link to={`/about-us`}>
+                <Button
+                  p={6}
+                  mt={12}
+                  gap={1}
+                  bg="brand"
+                  color="white"
+                  _hover={{ bg: 'red.600' }}
+                >
+                  See Details <FaLongArrowAltRight size={22} />
+                </Button>
+              </Link>
             </Box>
           </Flex>
 
@@ -195,16 +198,18 @@ const About = () => {
             </List>
 
             <Box>
-              <Button
-                p={6}
-                mt={8}
-                gap={1}
-                bg="brand"
-                color="white"
-                _hover={{ bg: 'red.600' }}
-              >
-                Get Started <FaLongArrowAltRight size={22} />
-              </Button>
+              <Link to={`/all-jobs`}>
+                <Button
+                  p={6}
+                  mt={8}
+                  gap={1}
+                  bg="brand"
+                  color="white"
+                  _hover={{ bg: 'red.600' }}
+                >
+                  Get Started <FaLongArrowAltRight size={22} />
+                </Button>
+              </Link>
             </Box>
           </Flex>
         </Flex>

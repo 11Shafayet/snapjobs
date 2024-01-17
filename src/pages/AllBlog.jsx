@@ -1,67 +1,91 @@
-import { useState } from 'react';
-import Sidebar from '../components/blogs/Sidebar';
 import bannerImage from '/images/28.jpg';
 import { blogs } from '../data';
 import { Link } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Flex,
+  Image,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 
 const AllBlog = () => {
-  const [searchedText, setSearchedText] = useState('');
-
-  const searchFilter = (item) => {
-    if (searchedText === '') {
-      return item;
-    } else if (item.title.toLowerCase().includes(searchedText.toLowerCase())) {
-      return item;
-    } else return;
-  };
   return (
-    <div>
-      <div
-        className="relative z-10 bg-cover bg-center bg-no-repeat flex justify-center items-center min-h-[60vh]"
+    <Box>
+      <Flex
+        justify="center"
+        align="center"
+        minH="60vh"
+        pos="relative"
+        zIndex={10}
+        bgPos="center"
+        bgRepeat="no-repeat"
         style={{ backgroundImage: `url(${bannerImage})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 opacity-70 -z-10" />
-        <h4 className="capitalize font-primary text-3xl md:text-5xl font-bold max-w-[800px] text-center text-white !leading-snug">
+        <Box
+          pos="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          opacity={0.7}
+          zIndex={-10}
+          style={{ background: `linear-gradient(120deg, #F6E05E, #00B5D8)` }}
+          className="absolute inset-0 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 opacity-70 -z-10"
+        />
+        <Text
+          textTransform="capitalize"
+          fontSize={{ base: 28, md: 48, xl: 64 }}
+          fontWeight={700}
+          maxW="800px"
+          textAlign="center"
+          color="white"
+          lineHeight={1.2}
+        >
           All Blogs
-        </h4>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className="py-12 md:py-20">
-        <div className="container px-4 mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-20">
-            <div className="col-span-1 lg:col-span-2">
-              <div className="flex flex-col gap-y-8">
-                {blogs.filter(searchFilter).map((item, i) => (
-                  <Link to={`/blog/${item.id}`} className="group" key={i}>
-                    <div className="relative mb-3">
-                      <img
-                        src={item.img}
-                        alt="blog"
-                        className="w-full max-h-[500px] object-cover rounded-lg"
-                      />
-                      <div className="absolute bottom-5 right-5 bg-black bg-opacity-40 py-3 px-6 rounded-md text-white font-bold text-xl">
-                        {item.date}
-                      </div>
-                    </div>
-                    <h3 className="text-3xl font-secondary font-bold group-hover:text-primary duration-300">
-                      {item.title}
-                    </h3>
-                    <p className=" line-clamp-2 opacity-50 mt-3">{item.desc}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="col-span-1">
-              <Sidebar
-                searchedText={searchedText}
-                setSearchedText={setSearchedText}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Box py={{ base: 12, md: 20 }}>
+        <Container mx="auto" maxW="1440px" px={{ base: 5, md: 20 }}>
+          <SimpleGrid
+            columns={{ base: 1, sm: 2, lg: 3 }}
+            gap={{ base: 4, lg: 12 }}
+          >
+            {blogs.map((item, i) => (
+              <Link to={`/all-blog/${item.id}`} className="group" key={i}>
+                <Box pos="relative" mb={3} group>
+                  <Image
+                    src={item.img}
+                    alt="blog"
+                    w="full"
+                    maxH="230px"
+                    objectFit="cover"
+                    borderRadius={5}
+                  />
+                  <Text opacity={0.5} mt={5}>
+                    {item.date}
+                  </Text>
+                </Box>
+                <Text
+                  noOfLines={2}
+                  lineHeight={1.4}
+                  fontSize={24}
+                  fontWeight={700}
+                  _groupHover={{ color: 'brand' }}
+                >
+                  {item.title}
+                </Text>
+                <Text noOfLines={2} opacity={0.5} mt={3}>
+                  {item.desc}
+                </Text>
+              </Link>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
+    </Box>
   );
 };
 

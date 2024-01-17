@@ -4,7 +4,7 @@ import Footer from '../components/common/Footer';
 import ScrollToTop from 'react-scroll-to-top';
 import { Center } from '@chakra-ui/react';
 import { FaArrowUp } from 'react-icons/fa';
-import Subscribe from '../components/home/Subscribe';
+import Subscribe from '../components/common/Subscribe';
 
 const MainLayout = () => {
   return (
